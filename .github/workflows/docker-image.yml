@@ -14,6 +14,7 @@ jobs:
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
 
   deploy:
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
     - name: Deploy to Server # https://github.com/marketplace/actions/ssh-deploy
