@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Deploy to Server
-      uses: actions/checkout@v3
+    - uses: actions/checkout@v3
       env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           #ARGS: "-i"
