@@ -8,6 +8,8 @@ from pydantic import BaseSettings
 import os
 import datetime
 
+from cred import user_data
+
 
 class Settings(BaseSettings):
     openapi_url: str = ""
@@ -16,10 +18,6 @@ class Settings(BaseSettings):
 settings = Settings()
 app = FastAPI(openapi_url=settings.openapi_url)
 
-user_data = {
-        "username": "inserter",
-        "password": "inserterlikeinfactoriogamebtwirecommendit",
-}
 
 class Input(BaseModel):
     username: str
