@@ -29,7 +29,7 @@ jobs:
           TARGET: ${{ secrets.REMOTE_TARGET }}
           #EXCLUDE: "/.github/"
       run: |
-        ls
+        echo $TARGET
         mkdir -p ~/.ssh/
         echo $SSH_PRIVATE_KEY > ~/.ssh/id_rsa
         chmod 700 ~/.ssh/id_rsa
