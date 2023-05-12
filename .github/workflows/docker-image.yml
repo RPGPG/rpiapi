@@ -20,17 +20,15 @@ jobs:
     steps:
     - name: Deploy to Server
       env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
           TARGET: ${{ secrets.REMOTE_TARGET }}
       run: |
         mkdir -p ~/.ssh/
-        echo $SSH_PRIVATE_KEY > ~/.ssh/id_rsa
+        echo ${{ secrets.SSH_PRIVATE_KEY }} > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         scp -P $REMOTE_PORT -o "StrictHostKeyChecking no" -i ~/.ssh/id_rsa $GITHUB_WORKSPACE/main.py $REMOTE_USER@$REMOTE_HOST:$TARGET/
         scp -P $REMOTE_PORT -o "StrictHostKeyChecking no" -i ~/.ssh/id_rsa $GITHUB_WORKSPACE/Dockerfile $REMOTE_USER@$REMOTE_HOST:$TARGET/
         scp -P $REMOTE_PORT -o "StrictHostKeyChecking no" -i ~/.ssh/id_rsa $GITHUB_WORKSPACE/recreate.sh $REMOTE_USER@$REMOTE_HOST:$TARGET/
         ssh -p $REMOTE_PORT -o "StrictHostKeyChecking no" -i ~/.ssh/id_rsa $REMOTE_USER@$REMOTE_HOST "chmod 700 $TARGET/recreate.sh && $TARGET/recreate.sh"
-#test
