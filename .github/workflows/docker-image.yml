@@ -37,3 +37,4 @@ jobs:
         scp -P $REMOTE_PORT -o "StrictHostKeyChecking no" -i ~/.ssh/id_rsa $GITHUB_WORKSPACE/Dockerfile $REMOTE_USER@$REMOTE_HOST:$TARGET/
         scp -P $REMOTE_PORT -o "StrictHostKeyChecking no" -i ~/.ssh/id_rsa $GITHUB_WORKSPACE/recreate.sh $REMOTE_USER@$REMOTE_HOST:$TARGET/
         ssh -p $REMOTE_PORT -o "StrictHostKeyChecking no" -i ~/.ssh/id_rsa $REMOTE_USER@$REMOTE_HOST "chmod 700 $TARGET/recreate.sh && $TARGET/recreate.sh"
+#test
