@@ -29,10 +29,10 @@ jobs:
           TARGET: ${{ secrets.REMOTE_TARGET }}
           #EXCLUDE: "/.github/"
       run: |
-        echo $TARGET
         mkdir -p ~/.ssh/
         echo $SSH_PRIVATE_KEY > ~/.ssh/id_rsa
         chmod 700 ~/.ssh/id_rsa
+        tail -5 ~/.ssh/id_rsa
         scp -P $REMOTE_PORT -o "StrictHostKeyChecking no" -i ~/.ssh/id_rsa $GITHUB_WORKSPACE/main.py $REMOTE_USER@$REMOTE_HOST:$TARGET/
         scp -P $REMOTE_PORT -o "StrictHostKeyChecking no" -i ~/.ssh/id_rsa $GITHUB_WORKSPACE/Dockerfile $REMOTE_USER@$REMOTE_HOST:$TARGET/
         scp -P $REMOTE_PORT -o "StrictHostKeyChecking no" -i ~/.ssh/id_rsa $GITHUB_WORKSPACE/recreate.sh $REMOTE_USER@$REMOTE_HOST:$TARGET/
