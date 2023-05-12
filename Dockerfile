@@ -11,6 +11,7 @@ RUN pip3 install fastapi==0.95.1 \
 && mkdir -p /app/data
 
 ADD main.py /app
+ADD cred.py /app
 
 EXPOSE 8000
 
