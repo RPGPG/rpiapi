@@ -50,7 +50,13 @@ async def get_data():
         df.set_index("timestamp", inplace=True)
     except FileNotFoundError:
         return "no data"
-    return tabulate(df, headers='keys', tablefmt='html')
+    df_last = df.tail(1)
+    html_last  =f"""
+    <h1>temperatura: {df_last["room_temp"]}<br>
+    wilgotność: {df_last["humidity"]}</h1><br><br>
+    """
+    df = df[::-1]
+    return html_last + tabulate(df, headers='keys', tablefmt='html')
 
 @app.get("/get_data_raw/", response_class=PlainTextResponse)
 async def get_data_raw():
