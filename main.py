@@ -27,6 +27,13 @@ class Input(BaseModel):
     humidity: int
     timestamp: int
 
+css = """
+<style>
+td {
+    border: 1px solid;
+}
+</style><br>
+"""
 
 @app.post("/input/")
 async def insert_data(inp: Input):
@@ -62,7 +69,12 @@ async def get_data():
     Wartości archiwalne: <br>
     """
     df = df[::-1]
-    return html_last + tabulate(df, headers='keys', tablefmt='html')
+    df.index.rename("Czas", inplace=True)
+    df.rename(columns={"raspberry_temp": "Temperatura_procesora",
+                       "room_temp": "Temperatura",
+                       "humidity": "Wilgotność"},
+                       inplace=True)
+    return css + html_last + tabulate(df, headers='keys', tablefmt='html')
 
 @app.get("/get_data_raw/", response_class=PlainTextResponse)
 async def get_data_raw():
