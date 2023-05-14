@@ -52,8 +52,10 @@ async def get_data():
         return "no data"
     df_last = df.tail(1)
     html_last  =f"""
-    <h1>temperatura: {df_last["room_temp"]}<br>
-    wilgotność: {df_last["humidity"]}</h1><br><br>
+    <h1> {df_last.index[0]} <br>
+    --- temperatura: {df_last["room_temp"][0]}°C ---<br>
+    --- wilgotność: {df_last["humidity"][0]}% ---</h1><br><br>
+    Wartości archiwalne: <br>
     """
     df = df[::-1]
     return html_last + tabulate(df, headers='keys', tablefmt='html')
