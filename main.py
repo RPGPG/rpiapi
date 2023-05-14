@@ -47,6 +47,10 @@ async def insert_data(inp: Input):
 async def get_data():
     try:
         df = pd.read_csv("data/data.csv")
+        df["timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
+        print(df["timestamp"])
+        df["timestamp"] = df["timestamp"].dt.tz_localize("UTC")
+        df["timestamp"] = df["timestamp"].dt.tz_convert("Europe/Warsaw")
         df.set_index("timestamp", inplace=True)
     except FileNotFoundError:
         return "no data"
